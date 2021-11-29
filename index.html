@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+  </head>
+  <body>
+    <button id="connect">Connect</button>
+    <script>
+      document.getElementById("connect").onclick = async () => {
+        try {
+          const device = await navigator.usb.requestDevice({
+            filters: [
+              {
+                classCode: 0xff,
+                subclassCode: 0x42,
+                protocolCode: 1
+              }
+            ]
+          });
+          await device.open();
+        } catch (e) {
+          alert(e.message);
+        }
+      };
+    </script>
+  </body>
+</html>
